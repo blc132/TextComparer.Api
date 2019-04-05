@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using TextComparer.Api.Dtos;
 using TextComparer.Api.Services.Interfaces;
 
 namespace TextComparer.Api.Controllers
@@ -17,11 +18,11 @@ namespace TextComparer.Api.Controllers
         }
 
         // GET api/values
-        [HttpPost("{textPattern, textsToCompare, splitText}")]
-        public string[] CompareText(string textPattern, string textsToCompare, string splitText)
+        [HttpPost]
+        public ActionResult CompareText([FromBody] CompareTextDto dto)
         {
-            var splittedTexts =_homeService.SplitTexts(textsToCompare, splitText);
-            return splittedTexts.ToArray();
+            var splittedTexts =_homeService.SplitTexts(dto.TextsToCompare, dto.SplitText);
+            return Ok();
         }
     }
 }
