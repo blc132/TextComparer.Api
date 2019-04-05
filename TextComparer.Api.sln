@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.539
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextComparer.Api", "TextComparer.Api\TextComparer.Api.csproj", "{DC7E2211-97B7-4FFC-AD99-208A0A14F432}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC7E2211-97B7-4FFC-AD99-208A0A14F432}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC7E2211-97B7-4FFC-AD99-208A0A14F432}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC7E2211-97B7-4FFC-AD99-208A0A14F432}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC7E2211-97B7-4FFC-AD99-208A0A14F432}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {17531443-86EC-4C48-BCF3-606E88AA7694}
+	EndGlobalSection
+EndGlobal
