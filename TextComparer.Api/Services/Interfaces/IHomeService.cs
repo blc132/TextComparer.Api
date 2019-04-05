@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TextComparer.Api.Services.Interfaces
 {
-    interface IHomeService
+    public interface IHomeService
     {
         IList<string> SplitTexts(string texts, string splitText);
     }

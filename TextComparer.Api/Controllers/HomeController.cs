@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using TextComparer.Api.Services.Interfaces;
 
 namespace TextComparer.Api.Controllers
 {
@@ -7,11 +9,19 @@ namespace TextComparer.Api.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
+        private readonly IHomeService _homeService;
+
+        public HomeController(IHomeService homeService)
+        {
+            _homeService = homeService;
+        }
+
         // GET api/values
         [HttpPost("{textPattern, textsToCompare, splitText}")]
-        public string CompareText(string textPattern, string textsToCompare, string splitTexts)
+        public string[] CompareText(string textPattern, string textsToCompare, string splitText)
         {
-            return textPattern + " " + textsToCompare + " " + splitTexts;
+            var splittedTexts =_homeService.SplitTexts(textsToCompare, splitText);
+            return splittedTexts.ToArray();
         }
     }
 }

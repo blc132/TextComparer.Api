@@ -8,6 +8,9 @@ namespace TextComparer.Api.Services
 {
     public class HomeService : IHomeService
     {
-        IList<string> SplitTexts
+        public IList<string> SplitTexts(string texts, string splitText)
+        {
+            return texts.Split(splitText);
+        }
     }
 }
