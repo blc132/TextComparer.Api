@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using TextComparer.Api.Dtos;
 using TextComparer.Api.Services.Interfaces;
@@ -21,8 +23,10 @@ namespace TextComparer.Api.Controllers
         [HttpPost]
         public ActionResult CompareText([FromBody] CompareTextDto dto)
         {
-            var splittedTexts =_homeService.SplitTexts(dto.TextsToCompare, dto.SplitText);
-            return Ok();
+            var result = _homeService.CompareText(dto);
+            if (result == null)
+                return NotFound();
+            return Ok(result);
         }
     }
 }

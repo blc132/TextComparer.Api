@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TextComparer.Api.Dtos;
 
 namespace TextComparer.Api.Services.Interfaces
 {
     public interface IHomeService
     {
-        IList<string> SplitTexts(string texts, string splitText);
+        string CompareText(CompareTextDto dto);
     }
 }
