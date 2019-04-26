@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using TextComparer.Api.Dtos;
 using TextComparer.Api.Services.Interfaces;
 
@@ -23,6 +25,9 @@ namespace TextComparer.Api.Controllers
         [HttpPost]
         public ActionResult CompareText([FromBody] CompareTextDto dto)
         {
+            var test = String.CompareOrdinal(dto.TextPattern, dto.TextsToCompare);
+            var comp = dto.TextPattern.Equals(dto.TextsToCompare);
+
             var result = _homeService.CompareText(dto);
             if (result == null)
                 return NotFound();
