@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
@@ -26,13 +28,14 @@ namespace TextComparer.Api.Services
 
         public string CompareText(CompareTextDto dto)
         {
-            var texts = dto.TextsToCompare.Split(dto.SplitText);
-            SaveFile(dto.TextPattern, texts);
+            var patternText = RemoveNewLineCharacters(dto.TextPattern);
+            var textsToCompare = RemoveNewLineCharacters(dto.TextsToCompare);
+            var texts = textsToCompare.Split(dto.SplitText);
+            
+            SaveFile(patternText, texts);
             var response = SendFileToApache();
-//            var xD = JsonConvert.DeserializeObject<List<int[]>>(response);
-//            var convertedResponse = ConvertResponse(response);
-//            var convertedResponse = ConvertResponse(response);
-            return response;
+            var convertedResponse = ConvertResponse(response);
+            return convertedResponse;
         }
 
         private void SaveFile(string textPattern, string[] texts)
@@ -40,11 +43,6 @@ namespace TextComparer.Api.Services
             if (File.Exists(_bufferPath))
                 File.Delete(_bufferPath);
 
-            //create txt, txt pattern:
-            //textPattern
-            //textToCompare1
-            //...
-            //textToCompareN
             using (StreamWriter sw = File.CreateText(_bufferPath))
             {
                 sw.WriteLine(textPattern);
@@ -65,8 +63,7 @@ namespace TextComparer.Api.Services
             {
                 client.Headers.Add("Content-Type", "application/octet-stream");
                 using (Stream fileStream = File.OpenRead(_bufferPath))
-//                response = client.UploadData("http://192.168.0.102:42069", fileStream.ToArray());
-                response = client.UploadData("http://192.168.43.178:42069", fileStream.ToArray());
+                response = client.UploadData("http://192.168.0.125:42069", fileStream.ToArray());
                 stringResponse = client.Encoding.GetString(response);
             }
             return stringResponse;
@@ -74,14 +71,18 @@ namespace TextComparer.Api.Services
 
         private string ConvertResponse(string response)
         {
-            var text = "";
-            response = response.Remove(response.IndexOf('[')).Remove(response.IndexOf(']'));
-            var percentageResults = response.Split(" ");
-            for (var i = 1; i < percentageResults.Length - 1; i++)
+            var percentageResults = Regex.Matches(response, @"[0-9]?[0-9]?[0-9]?\.[0-9]?[0-9]?").Select(x => x.Value).ToList();
+            var responseText = "";
+            for (var i = 1; i < percentageResults.Count; i++)
             {
-                text += "Tekst nr." + i + " jest podobny w " + percentageResults + "%, \n";
+                responseText += "Tekst nr." + i + " jest podobny w " + percentageResults[i] + "% \n";
             }
-            return text;
+            return responseText;
+        }
+
+        private string RemoveNewLineCharacters(string text)
+        {
+            return text.Replace("\n\n\n", String.Empty).Replace("\n\n", String.Empty).Replace("\n", String.Empty); 
         }
     }
 }
