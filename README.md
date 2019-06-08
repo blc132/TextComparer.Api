@@ -3,8 +3,8 @@
 TextComparer - prosty program do porównywania tekstów.
 
 #### Endpointy:
--  /api/home/
-  - [POST] comparetext [FromBody CompareTextDto*]  - zwraca procentowe podobieństwo tekstu wzorcowego (TextPattern) do każdego zadanego tekstu (TextsToCompare). Podobieństwo wyliczone przez klastry zaimplementowane w Pythonie (Apache Spark) 
+  /api/home/
+  - [POST] comparetext [FromBody CompareTextDto*]  - zwraca procentowe podobieństwo tekstu wzorcowego (TextPattern) do każdego zadanego tekstu (TextsToCompare). Podobieństwo wyliczone przez klastry zaimplementowane w języku Scala (Apache Spark) 
 
 *struktura CompareTextDto w /TextComparer.Api/TextComparer.Api/Dtos/
 
